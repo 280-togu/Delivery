@@ -1,5 +1,5 @@
 public class FragileParcel extends Parcel {
-    FragileParcel(String description, int weight, String deliveryAddress, double sendDay) {
+    FragileParcel(String description, int weight, String deliveryAddress, int sendDay) {
         super(description, weight, deliveryAddress, sendDay);
     }
 

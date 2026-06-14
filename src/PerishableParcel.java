@@ -1,8 +1,9 @@
 public class PerishableParcel extends Parcel{
-    private int timeToLive;
+    int timeToLive;
 
-    PerishableParcel(String description, int weight, String deliveryAddress, double sendDay) {
+    PerishableParcel(String description, int weight, String deliveryAddress, int sendDay, int timeToLive) {
         super(description, weight, deliveryAddress, sendDay);
+        this.timeToLive = timeToLive;
     }
 
     @Override
