@@ -1,24 +1,39 @@
 public abstract class Parcel {
-    protected String description;
-    protected int weight;
-    protected String deliveryAddress;
-    protected int sendDay;
+    private final String description;
+    private final int weight;
+    private final String deliveryAddress;
+    private final int sendDay;
 
-    Parcel(String description, int weight, String deliveryAddress, int sendDay) {
+    protected abstract int getBaseCost();
+
+    public Parcel(String description, int weight, String deliveryAddress, int sendDay) {
         this.description = description;
         this.weight = weight;
         this.deliveryAddress = deliveryAddress;
         this.sendDay = sendDay;
     }
 
-    protected abstract void packageItem();
+    public void packageItem() {
+        System.out.println("Посылка" + " " + description + " " + "упакована.");
+    }
 
-    protected  void deliver() {
+    public void deliver() {
         System.out.println("Посылка" + " " + description + " " + "доставлена по адресу" + " " + deliveryAddress);
     }
 
-    protected abstract class calculateDeliveryCost {
-        int cost;
-        cost = weight * 10;
+    public int calculateDeliveryCost() {
+        return getBaseCost() * weight;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public int getWeight() {
+        return weight;
+    }
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+    public int getSendDay() {
+        return sendDay;
     }
 }
