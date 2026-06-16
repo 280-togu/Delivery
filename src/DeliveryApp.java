@@ -8,6 +8,9 @@ public class DeliveryApp {
     private static final Scanner scanner = new Scanner(System.in);
     private static List<Parcel> allParcels = new ArrayList<>();
     private static List<Trackable> trackableParcels = new ArrayList<>();
+    private static final ParcelBox<StandardParcel> standardBox = new ParcelBox<>(20);
+    private static final ParcelBox<FragileParcel> fragileBox = new ParcelBox<>(10);
+    private static final ParcelBox<PerishableParcel> perishableBox = new ParcelBox<>(5);
 
     public static void main(String[] args) {
         boolean running = true;
@@ -66,22 +69,24 @@ public class DeliveryApp {
 
         System.out.print("День отправления: ");
         int sendDay = Integer.parseInt(scanner.nextLine());
-        Parcel parcel;
         switch (type) {
             case 1:
-                parcel = new StandardParcel(description, weight, address, sendDay);
-                allParcels.add(parcel);
+                StandardParcel standardParcel = new StandardParcel(description, weight, address, sendDay);
+                allParcels.add(standardParcel);
+                standardBox.addParcel(standardParcel);
                 break;
             case 2:
                 FragileParcel fragileParcel = new FragileParcel(description, weight, address, sendDay);
                 allParcels.add(fragileParcel);
+                fragileBox.addParcel(fragileParcel);
                 trackableParcels.add(fragileParcel);
                 break;
             case 3:
                 System.out.print("Время жизни (дни): ");
                 int timeToLive = Integer.parseInt(scanner.nextLine());
-                parcel = new PerishableParcel(description, weight, address, sendDay, timeToLive);
-                allParcels.add(parcel);
+                PerishableParcel perishableParcel = new PerishableParcel(description, weight, address, sendDay, timeToLive);
+                perishableBox.addParcel(perishableParcel);
+                allParcels.add(perishableParcel);
                 break;
             default:
                 System.out.println("Неверный тип посылки.");
