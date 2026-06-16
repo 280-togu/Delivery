@@ -31,6 +31,10 @@ public class DeliveryApp {
                 case 4:
                     updateStatuses();
                     break;
+                case 5:
+                    showBox();
+                    break;
+
                 case 0:
                     running = false;
                     break;
@@ -46,6 +50,7 @@ public class DeliveryApp {
         System.out.println("2 — Отправить все посылки");
         System.out.println("3 — Посчитать стоимость доставки");
         System.out.println("4 — Обновить статус отправлений");
+        System.out.println("5 — Показать содержимое коробки");
         System.out.println("0 — Завершить");
     }
 
@@ -132,4 +137,37 @@ public class DeliveryApp {
         }
     }
 
+    private static void showBox() {
+        System.out.println("Выберите коробку:");
+        System.out.println("1 — Стандартная");
+        System.out.println("2 — Хрупкая");
+        System.out.println("3 — Скоропортящаяся");
+
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        switch (choice) {
+            case 1:
+                printBox(standardBox);
+                break;
+            case 2:
+                printBox(fragileBox);
+                break;
+            case 3:
+                printBox(perishableBox);
+                break;
+            default:
+                System.out.println("Неверный выбор.");
+        }
+    }
+
+    private static <T extends Parcel> void printBox(ParcelBox<T> box) {
+        if (box.getAllParcels().isEmpty()) {
+            System.out.println("Коробка пуста.");
+            return;
+        }
+
+        for (T parcel : box.getAllParcels()) {
+            System.out.println(parcel.getDescription());
+        }
+    }
 }
