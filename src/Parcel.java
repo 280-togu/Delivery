@@ -7,6 +7,10 @@ public abstract class Parcel {
     protected abstract int getBaseCost();
 
     public Parcel(String description, int weight, String deliveryAddress, int sendDay) {
+        if (weight < 0) {
+            throw new IllegalArgumentException("Вес посылки не может быть отрицательным.");
+        }
+
         this.description = description;
         this.weight = weight;
         this.deliveryAddress = deliveryAddress;
@@ -24,15 +28,19 @@ public abstract class Parcel {
     public int calculateDeliveryCost() {
         return getBaseCost() * weight;
     }
+
     public String getDescription() {
         return description;
     }
+
     public int getWeight() {
         return weight;
     }
+
     public String getDeliveryAddress() {
         return deliveryAddress;
     }
+
     public int getSendDay() {
         return sendDay;
     }

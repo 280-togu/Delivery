@@ -77,21 +77,24 @@ public class DeliveryApp {
         switch (type) {
             case 1:
                 StandardParcel standardParcel = new StandardParcel(description, weight, address, sendDay);
-                allParcels.add(standardParcel);
-                standardBox.addParcel(standardParcel);
+                if (standardBox.addParcel(standardParcel)) {
+                    allParcels.add(standardParcel);
+                }
                 break;
             case 2:
                 FragileParcel fragileParcel = new FragileParcel(description, weight, address, sendDay);
-                allParcels.add(fragileParcel);
-                fragileBox.addParcel(fragileParcel);
-                trackableParcels.add(fragileParcel);
+                if (fragileBox.addParcel(fragileParcel)) {
+                    allParcels.add(fragileParcel);
+                    trackableParcels.add(fragileParcel);
+                }
                 break;
             case 3:
-                System.out.print("Время жизни (дни): ");
+                System.out.println("Введите срок годности (в днях): ");
                 int timeToLive = Integer.parseInt(scanner.nextLine());
                 PerishableParcel perishableParcel = new PerishableParcel(description, weight, address, sendDay, timeToLive);
-                perishableBox.addParcel(perishableParcel);
-                allParcels.add(perishableParcel);
+                if (perishableBox.addParcel(perishableParcel)) {
+                    allParcels.add(perishableParcel);
+                }
                 break;
             default:
                 System.out.println("Неверный тип посылки.");

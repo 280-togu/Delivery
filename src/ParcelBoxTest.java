@@ -50,4 +50,25 @@ public class ParcelBoxTest {
         assertEquals(2, box.getAllParcels().size());
         assertEquals(5, box.getCurrentWeight());
     }
+
+    @Test
+    public void shouldAccumulateWeightAcrossMultipleParcels() {
+        ParcelBox<StandardParcel> box = new ParcelBox<>(10);
+
+        StandardParcel parcel1 = new StandardParcel("Книга", 3, "адрес", 1);
+
+        StandardParcel parcel2 = new StandardParcel("Тетрадь", 4, "адрес", 1);
+
+        StandardParcel parcel3 = new StandardParcel("Словарь", 4, "адрес", 1);
+
+        assertTrue(box.addParcel(parcel1));
+        assertTrue(box.addParcel(parcel2));
+        assertFalse(box.addParcel(parcel3));
+
+        assertEquals(2, box.getAllParcels().size());
+        assertEquals(7, box.getCurrentWeight());
+
+        assertEquals(parcel1, box.getAllParcels().get(0));
+        assertEquals(parcel2, box.getAllParcels().get(1));
+    }
 }
